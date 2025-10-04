@@ -1,65 +1,89 @@
 #include <iostream>
 using namespace std;
 
-//
-// ---------------------- PARTE A - RECURSIVIDADE ----------------------
-//
+// ============================================================================
+// ---------------------- PARTE A - RECURSIVIDADE -----------------------------
+// ============================================================================
 
-// Fun��o 1: fatorial
+// Função 1: fatorial
+/*
+ * Calcula o fatorial de um número n usando recursão.
+ * Exemplo: f1(5) = 5 * 4 * 3 * 2 * 1 = 120
+ */
 int f1(int n) {
-    if (n == 0) return 1;
-    else return n * f1(n - 1);
+    if (n == 0)
+        return 1; // caso base: 0! = 1
+    else
+        return n * f1(n - 1); // passo recursivo
 }
 
-// Fun��o 2: fun��o recursiva customizada
+// Função 2: função recursiva customizada
+/*
+ * Gera uma sequência numérica baseada na relação:
+ * f(n) = f(n - 1) + 2 * f(n - 2)
+ * com f(0) = 1 e f(1) = 1
+ */
 int f2(int n) {
     if (n == 0) return 1;
     if (n == 1) return 1;
     else return f2(n - 1) + 2 * f2(n - 2);
 }
 
-// Fun��o 3: impress�o recursiva
+// Função 3: impressão recursiva
+/*
+ * Imprime os números de n até 0, repetindo cada número duas vezes.
+ * Exemplo: f3(3) → 3 3 2 2 1 1 Zero
+ */
 int f3(int n) {
     if (n == 0) {
         cout << "Zero ";
     } else {
         cout << n << " ";
         cout << n << " ";
-        f3(n - 1);
+        f3(n - 1); // chamada recursiva para n - 1
     }
     return 0;
 }
 
-// Quest�o 2: soma de pares at� N
+// Questão 2: soma de pares até N
+/*
+ * Soma todos os números pares de 0 até n.
+ * Exemplo: somaPares(9) = 8 + 6 + 4 + 2 = 20
+ */
 int somaPares(int n) {
     if (n < 0) return 0;
-    if (n % 2 != 0) n--; // garante que seja par
-    if (n == 0) return 0;
-    return n + somaPares(n - 2);
+    if (n % 2 != 0) n--; // garante que o número seja par
+    if (n == 0) return 0; // caso base
+    return n + somaPares(n - 2); // soma recursiva
 }
 
-// Quest�o 3: produto a * b
+// Questão 3: produto a * b
+/*
+ * Simula a multiplicação de a por b usando apenas somas.
+ * Exemplo: produto(4,3) = 4 + 4 + 4 = 12
+ */
 int produto(int a, int b) {
-    if (b == 0) return 0;
-    if (b == 1) return a;
-    return a + produto(a, b - 1);
+    if (b == 0) return 0; // caso base
+    if (b == 1) return a; // caso base
+    return a + produto(a, b - 1); // soma recursiva
 }
 
-// --------------------------------------------------------------------
-// ---------------------- PARTE B - LISTA ENCADEADA -------------------
-// --------------------------------------------------------------------
+// ============================================================================
+// ---------------------- PARTE B - LISTA ENCADEADA SIMPLES -------------------
+// ============================================================================
 
+// Estrutura básica de um nó de lista encadeada
 struct No {
-    int info;
-    No* prox;
+    int info;   // valor armazenado
+    No* prox;   // ponteiro para o próximo nó
 };
 
 // Criar lista vazia
 No* criarLista() {
-    return NULL;
+    return NULL; // lista vazia apontando para NULL
 }
 
-// Inserir elemento no in�cio
+// Inserir elemento no início da lista
 No* inserirInicio(No* lista, int valor) {
     No* novo = new No;
     novo->info = valor;
@@ -67,7 +91,7 @@ No* inserirInicio(No* lista, int valor) {
     return novo;
 }
 
-// Percorrer a lista
+// Percorrer e imprimir a lista
 void imprimirLista(No* lista) {
     No* aux = lista;
     while (aux != NULL) {
@@ -77,7 +101,7 @@ void imprimirLista(No* lista) {
     cout << "NULL\n";
 }
 
-// Buscar elemento
+// Buscar elemento na lista
 bool buscar(No* lista, int valor) {
     No* aux = lista;
     while (aux != NULL) {
@@ -87,19 +111,19 @@ bool buscar(No* lista, int valor) {
     return false;
 }
 
-// Retornar n�mero de elementos
+// Contar número de elementos na lista (recursivo)
 int contar(No* lista) {
-    if (lista == NULL) return 0;
-    return 1 + contar(lista->prox);
+    if (lista == NULL) return 0; // caso base
+    return 1 + contar(lista->prox); // soma 1 e chama o próximo
 }
 
-// --------------------------------------------------------------------
-// ---------------------- PILHA ---------------------------------------
-// --------------------------------------------------------------------
+// ============================================================================
+// ---------------------- PILHA (LIFO - Last In First Out) --------------------
+// ============================================================================
 
 struct TipoPilha {
-    No* topo;
-    int tamanho;
+    No* topo;    // ponteiro para o topo da pilha
+    int tamanho; // contador de elementos
 };
 
 // Inicializar pilha
@@ -110,7 +134,7 @@ TipoPilha* criarPilha() {
     return p;
 }
 
-// Inserir elemento (push)
+// Inserir elemento na pilha (push)
 void push(TipoPilha* p, int valor) {
     No* novo = new No;
     novo->info = valor;
@@ -119,7 +143,7 @@ void push(TipoPilha* p, int valor) {
     p->tamanho++;
 }
 
-// Remover elemento (pop)
+// Remover elemento do topo da pilha (pop)
 int pop(TipoPilha* p) {
     if (p->topo == NULL) {
         cout << "Pilha vazia!\n";
@@ -133,7 +157,7 @@ int pop(TipoPilha* p) {
     return valor;
 }
 
-// Listar elementos da pilha
+// Imprimir pilha
 void imprimirPilha(TipoPilha* p) {
     No* aux = p->topo;
     while (aux != NULL) {
@@ -143,7 +167,7 @@ void imprimirPilha(TipoPilha* p) {
     cout << "NULL\n";
 }
 
-// Verificar se elemento est� na pilha
+// Buscar elemento na pilha
 bool buscarPilha(TipoPilha* p, int valor) {
     No* aux = p->topo;
     while (aux != NULL) {
@@ -153,9 +177,9 @@ bool buscarPilha(TipoPilha* p, int valor) {
     return false;
 }
 
-// --------------------------------------------------------------------
-// ---------------------- LISTA DUPLAMENTE ENCADEADA ------------------
-// --------------------------------------------------------------------
+// ============================================================================
+// ---------------------- LISTA DUPLAMENTE ENCADEADA --------------------------
+// ============================================================================
 
 struct NoDuplo {
     int info;
@@ -163,29 +187,31 @@ struct NoDuplo {
     NoDuplo* ant;
 };
 
-// Inserir no in�cio da lista duplamente encadeada
+// Inserir no início da lista duplamente encadeada
 NoDuplo* inserirInicioDuplo(NoDuplo* inicio, int valor) {
-    // Impede duplicados
+    // Verifica se o elemento já existe
     NoDuplo* aux = inicio;
     while (aux != NULL) {
         if (aux->info == valor) {
-            cout << "Elemento j� existe!\n";
+            cout << "Elemento já existe!\n";
             return inicio;
         }
         aux = aux->prox;
     }
 
+    // Cria um novo nó
     NoDuplo* novo = new NoDuplo;
     novo->info = valor;
     novo->ant = NULL;
     novo->prox = inicio;
 
-    if (inicio != NULL) inicio->ant = novo;
+    if (inicio != NULL)
+        inicio->ant = novo;
 
     return novo;
 }
 
-// Impress�o da lista duplamente encadeada
+// Imprimir lista duplamente encadeada
 void imprimirDuplo(NoDuplo* inicio) {
     NoDuplo* aux = inicio;
     while (aux != NULL) {
@@ -195,7 +221,7 @@ void imprimirDuplo(NoDuplo* inicio) {
     cout << "NULL\n";
 }
 
-// Buscar elemento
+// Buscar elemento na lista duplamente encadeada
 bool buscarDuplo(NoDuplo* inicio, int valor) {
     NoDuplo* aux = inicio;
     while (aux != NULL) {
@@ -205,63 +231,118 @@ bool buscarDuplo(NoDuplo* inicio, int valor) {
     return false;
 }
 
-// Excluir elemento
+// Excluir elemento da lista duplamente encadeada
 NoDuplo* excluirDuplo(NoDuplo* inicio, int valor) {
     NoDuplo* aux = inicio;
+
     while (aux != NULL && aux->info != valor) {
         aux = aux->prox;
     }
+
     if (aux == NULL) return inicio;
 
-    if (aux->ant != NULL) aux->ant->prox = aux->prox;
-    else inicio = aux->prox;
+    if (aux->ant != NULL)
+        aux->ant->prox = aux->prox;
+    else
+        inicio = aux->prox;
 
-    if (aux->prox != NULL) aux->prox->ant = aux->ant;
+    if (aux->prox != NULL)
+        aux->prox->ant = aux->ant;
 
     delete aux;
     return inicio;
 }
 
-// --------------------------------------------------------------------
-// ---------------------- MAIN ----------------------------------------
-// --------------------------------------------------------------------
+// ============================================================================
+// ---------------------- MAIN -----------------------------------------------
+// ============================================================================
 
 int main() {
-    cout << "=== PARTE A ===\n";
-    cout << "f1(5) = " << f1(5) << endl;
-    cout << "f2(5) = " << f2(5) << endl;
-    cout << "f3(3): "; f3(3); cout << endl;
-    cout << "Soma pares ate 9: " << somaPares(9) << endl;
-    cout << "Produto 4*3 = " << produto(4, 3) << endl;
+    int n, a, b, valor;
 
+    cout << "=== PARTE A ===\n";
+    cout << "Digite um numero para f1 (fatorial): ";
+    cin >> n;
+    cout << "f1(" << n << ") = " << f1(n) << endl;
+
+    cout << "\nDigite um numero para f2 (sequencia personalizada): ";
+    cin >> n;
+    cout << "f2(" << n << ") = " << f2(n) << endl;
+
+    cout << "\nDigite um numero para f3 (impressao recursiva): ";
+    cin >> n;
+    cout << "f3(" << n << "): ";
+    f3(n);
+    cout << endl;
+
+    cout << "\nDigite um numero para soma de pares: ";
+    cin >> n;
+    cout << "Soma pares ate " << n << ": " << somaPares(n) << endl;
+
+    cout << "\nDigite dois numeros para o produto (a * b):\n";
+    cout << "a = ";
+    cin >> a;
+    cout << "b = ";
+    cin >> b;
+    cout << "Produto " << a << " * " << b << " = " << produto(a, b) << endl;
+
+    // --------------------------------------------------------------------
     cout << "\n=== LISTA SIMPLES ===\n";
     No* lista = criarLista();
-    lista = inserirInicio(lista, 10);
-    lista = inserirInicio(lista, 20);
-    lista = inserirInicio(lista, 30);
+    int qtd;
+    cout << "Quantos elementos deseja inserir na lista? ";
+    cin >> qtd;
+    for (int i = 0; i < qtd; i++) {
+        cout << "Digite o valor " << i + 1 << ": ";
+        cin >> valor;
+        lista = inserirInicio(lista, valor);
+    }
     imprimirLista(lista);
-    cout << "Buscar 20: " << buscar(lista, 20) << endl;
+
+    cout << "Digite um valor para buscar na lista: ";
+    cin >> valor;
+    cout << (buscar(lista, valor) ? "Valor encontrado!\n" : "Valor nao encontrado!\n");
     cout << "Numero de elementos: " << contar(lista) << endl;
 
+    // --------------------------------------------------------------------
     cout << "\n=== PILHA ===\n";
     TipoPilha* pilha = criarPilha();
-    push(pilha, 1);
-    push(pilha, 2);
-    push(pilha, 3);
+    cout << "Quantos elementos deseja empilhar? ";
+    cin >> qtd;
+    for (int i = 0; i < qtd; i++) {
+        cout << "Digite o valor " << i + 1 << ": ";
+        cin >> valor;
+        push(pilha, valor);
+    }
     imprimirPilha(pilha);
-    cout << "Pop: " << pop(pilha) << endl;
-    imprimirPilha(pilha);
-    cout << "Buscar 2 na pilha: " << buscarPilha(pilha, 2) << endl;
 
+    cout << "Deseja remover (pop) um elemento da pilha? (1=sim / 0=nao): ";
+    cin >> valor;
+    if (valor == 1) {
+        cout << "Elemento removido: " << pop(pilha) << endl;
+        imprimirPilha(pilha);
+    }
+
+    cout << "Digite um valor para buscar na pilha: ";
+    cin >> valor;
+    cout << (buscarPilha(pilha, valor) ? "Encontrado!\n" : "Nao encontrado!\n");
+
+    // --------------------------------------------------------------------
     cout << "\n=== LISTA DUPLAMENTE ENCADEADA ===\n";
     NoDuplo* lista2 = NULL;
-    lista2 = inserirInicioDuplo(lista2, 5);
-    lista2 = inserirInicioDuplo(lista2, 10);
-    lista2 = inserirInicioDuplo(lista2, 15);
+    cout << "Quantos elementos deseja inserir? ";
+    cin >> qtd;
+    for (int i = 0; i < qtd; i++) {
+        cout << "Digite o valor " << i + 1 << ": ";
+        cin >> valor;
+        lista2 = inserirInicioDuplo(lista2, valor);
+    }
     imprimirDuplo(lista2);
-    lista2 = excluirDuplo(lista2, 10);
+
+    cout << "Digite um valor para excluir da lista duplamente encadeada: ";
+    cin >> valor;
+    lista2 = excluirDuplo(lista2, valor);
     imprimirDuplo(lista2);
 
     return 0;
 }
-
